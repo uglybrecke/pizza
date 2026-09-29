@@ -2,6 +2,7 @@ body {
     background-color: red;
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 2rem;
 }
 #main {
     background-color: white;
@@ -12,6 +13,25 @@ body {
 #header {
     background-color: lightgray;
     border-radius: .25rem;
-    padding: 2rem 1rem;
+    padding: 2rem 2rem;
     margin-bottom: 2rem;
+}
+#header img {
+    max-width: 200px;
+    flex: right;
+    padding: 1rem;
+}
+h1 {
+    font-weight: bold;
+    color: green;
+}
+#contact-button {
+    border: none;
+    background-color: darkgreen;
+    border-color: darkgreen;
+    padding: .5rem .75rem;
+    border-radius: .25rem;
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
 }
