@@ -13,14 +13,31 @@
         <div id="header">
             <img src="images\pizzaguy.png" alt="supreme slice of pizza with logo thatza pizza and slogan">
             <h1>Thatza Pizza</h1>
-            <h2>thanks for that!</h2>
+            <h2>thanks for THAT!</h2>
             <hr>
             <p>we make great pizza!</p>
             <a id="contact-button" href="#" role="button">Contact Us</a>
         </div>
         <form id="pizza-form" action="#" method="get">
-
             <!-- Contact Info  -->
+            <fieldset>
+                <legend>Contact Info</legend>
+                <label for="fname">First Name:</label>
+                <input type="text" id="fname" name="fname">
+                <label for="lname">Last Name:</label>
+                <input type="text" id="lname" name="lname">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+            </fieldset>
+            <fieldset>
+                <legend>Select Pickup or Delivery</legend>
+                <!-- same name for these makes them so you can't select both -->
+                <input type="radio" id="delivery" name="method" value="delivery">
+                <label for="delivery">Delivery</label>
+                <input type="radio" id="pickup" name="method" value="pickup">
+                <label for="pickup">Pick Up</label>
+            </fieldset>
+            <button type="submit" id="order-button">Place Order</button>  
         </form>
     </div>
 </body>
