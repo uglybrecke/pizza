@@ -6,7 +6,10 @@
     <title>Thatsa Pizza</title>
     <!-- Favicon -->
     <link rel="icon" href="/images/pizza_favicon.png">
+    <!-- CSS -->
     <link rel="Stylesheet" href="/styles/pizza-styles.css">
+    <!-- JavaScript, defered to after the page loads -->
+     <script src="scripts/pizza.js" defer></script>
 </head>
 <body>
     <div id="main">
@@ -22,12 +25,19 @@
             <!-- Contact Info  -->
             <fieldset>
                 <legend>Contact Info</legend>
+
                 <label for="fname">First Name:</label>
+                <span class="err" id="err-fname">First name is required</span>
                 <input type="text" id="fname" name="fname">
+
                 <label for="lname">Last Name:</label>
+                <span class="err" id="err-lname">Last name is required</span>
                 <input type="text" id="lname" name="lname">
+
                 <label for="email">Email:</label>
+                <span class="err" id="err-email">Email is required</span>
                 <input type="email" id="email" name="email">
+
             </fieldset>
             <fieldset>
                 <legend>Select Pickup or Delivery</legend>

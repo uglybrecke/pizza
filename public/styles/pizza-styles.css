@@ -45,3 +45,8 @@ input[type="text"], input[type="email"] {
     margin: 0rem 0rem 1rem 0rem;
     padding: .75rem;
 }
+
+.err {
+    color: darkred;
+    display: none;
+}
