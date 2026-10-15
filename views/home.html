@@ -12,7 +12,7 @@
      <script src="scripts/pizza.js" defer></script>
 </head>
 <body>
-    <div id="main">
+    <main>
         <div id="header">
             <img src="/images/pizzaguy.png" alt="supreme slice of pizza with logo thatza pizza and slogan">
             <h1>THATza PIZZA</h1>
@@ -42,13 +42,49 @@
             <fieldset>
                 <legend>Select Pickup or Delivery</legend>
                 <!-- same name for these makes them so you can't select both -->
-                <input type="radio" id="delivery" name="method" value="delivery">
-                <label for="delivery">Delivery</label>
-                <input type="radio" id="pickup" name="method" value="pickup">
-                <label for="pickup">Pick Up</label>
+                <span class="err" id="err-method">Select Pickup or Delivery</span>
+                    <input type="radio" id="delivery" name="method" value="delivery">
+                    <label for="delivery">Delivery</label>
+
+                    <input type="radio" id="pickup" name="method" value="pickup">
+                    <label for="pickup">Pick Up</label>
+                
             </fieldset>
-            <button type="submit" id="order-button">Place Order</button>  
+                        <!-- Toppings -->
+            <fieldset>
+                <legend>Select Toppings</legend>
+                <label for="pepperoni">
+                    <input type="checkbox" id="pepperoni" name="toppings[]"
+                           value="pepperoni">Pepperoni
+                </label>
+                <label for="pineapple">
+                    <input type="checkbox" id="pineapple" name="toppings[]"
+                           value="pineapple">Pineapple
+                </label>
+            </fieldset>
+
+            <!-- Pizza Size -->
+            <fieldset>
+                <legend>Pizza Size</legend>
+                <span class="err" id="err-size">Select Pizza Size</span>
+                    <select id="size" name="size">
+                    <option value="none">-- Select a Size --</option>
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+                
+
+            </fieldset>
+
+            <!-- Comment field -->
+            <label for="comment">Comments:</label>
+            <textarea rows="5" id="comment" name="comment"></textarea>
+            
+            <!-- Add an Order button -->
+            <button type="submit" id="order-button">Place Order</button>
         </form>
-    </div>
+            
+    <main>
 </body>
 </html>

@@ -8,7 +8,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 2rem;
 }
-#main {
+main {
     background-color: lightgray;
     width: 70%;
     margin: 0 auto; /*top/bottom + left/right */

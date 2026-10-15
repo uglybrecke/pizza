@@ -34,6 +34,26 @@ document.getElementById("pizza-form").onsubmit = () => {
     if(isvalid == false) {
         return false;
     }
+
+    //validate method; pickup or delivery
+let methodSelected = false;
+let methodButtons = document.getElementsByName("method");
+for (let i=0; i<methodButtons.length; i++) {
+    if(methodButtons[i].checked) {
+        methodSelected = true;
+    }    
+}
+
+if (!methodSelected) {
+    document.getElementById("err-method").style.display = "block";
+    isvalid = false;
+}
+//validate pizza
+let size = document.getElementById("size").value;
+if (size == "none") {
+    document.getElementById("err-size").style.display = "block";
+    isvalid = false;
+}
 };
 
 function clearErrors() {
