@@ -19,9 +19,10 @@
             <h2>thanks for THAT!</h2>
             <hr>
             <p>we make great pizza!</p>
-            <a id="contact-button" href="#" role="button">Contact Us</a>
+            <a id="contact-button" href="/contact" role="button">Contact Us</a>
         </div>
-        <form id="pizza-form" action="#" method="get">
+        <!-- post is more secure because it doesn't go through the url -->
+        <form id="pizza-form" action="/submit-order" method="post"> 
             <!-- Contact Info  -->
             <fieldset>
                 <legend>Contact Info</legend>
@@ -68,11 +69,11 @@
                 <legend>Pizza Size</legend>
                 <span class="err" id="err-size">Select Pizza Size</span>
                     <select id="size" name="size">
-                    <option value="none">-- Select a Size --</option>
-                    <option value="small">Small</option>
-                    <option value="medium">Medium</option>
-                    <option value="large">Large</option>
-                </select>
+                        <option value="none">-- Select a Size --</option>
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
+                    </select>
                 
 
             </fieldset>
