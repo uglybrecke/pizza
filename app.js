@@ -55,7 +55,14 @@ app.post('/submit-order', (req, res) => {
     orders.push(order);
     console.log(orders);
 
+    //display confirmation page
     res.sendFile(`${import.meta.dirname}/views/confirm.html`);
+})
+
+//add an ADMIN route route
+app.get('/admin', (req, res) => {
+    //send this file
+    res.send(orders);
 })
 
 //start the server on the designated port
@@ -63,3 +70,4 @@ app.listen(PORT, () => {
     console.log(`Server is running at
         http://localhost:${PORT}`);
 });
+
