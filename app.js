@@ -64,9 +64,9 @@ app.get('/db-test', async(req,res) => {
 
     // try/catch block for error handling
     try {
-        const orders = await pool.query('SELECT * FROM orders');
+        const orders = await pool.query('SELECT * FROM orders'); //await for a database response but keep working
         // Send the orders data back to the browser as JSON
-        res.send(orders[0]);
+        res.send(orders[0]); // 0 is the data, 1 is the metadata
     } catch(err) {
         // If ANY error happened in the 'try' block, this code runs
         // Log the error to the server console (for developers to see)
