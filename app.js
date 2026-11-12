@@ -120,8 +120,12 @@ app.post('/submit-order', async(req, res) => {
     //create a json object to store order data
     const order = req.body;
 
-    //old code
-    // order['timestamp'] = new Date();
+    //old code that we've re-added
+    order.timestamp = new Date();
+    
+    //conver toppings array to a comma-deliminated string
+    order.toppings = Array.isArray(order.toppings) ?
+        order.toppings.join(", ") : "";
 
     console.log(order);
 
@@ -139,12 +143,15 @@ app.post('/submit-order', async(req, res) => {
         order.comment
     ];
 
-    //execute the query
+    //execute the query (using array destructuring)
     const [result] = await pool.execute(sql, params);
 
     //old code
     // orders.push(order);
     // console.log(orders);
+
+    //get the id from the newly inserted row
+    order.id = result.insertId;
 
     //display confirmation page
     res.render(`confirm`, { order }); //adding the ORDER object to the data on the confirm page
@@ -155,10 +162,10 @@ app.get('/admin', async(req, res) => {
     //send this file
     // try/catch block for error handling
     try {
-        const orders = await pool.query('SELECT * FROM orders');
+        const [orders] = await pool.query('SELECT * FROM orders ORDER BY timestamp DESC');
         // Send the orders data back to the browser as JSON
         // res.send(orders[0]);
-        res.render(`admin`, { orders:orders[0] } );
+        res.render(`admin`, { orders } );
     } catch(err) {
         // If ANY error happened in the 'try' block, this code runs
         // Log the error to the server console (for developers to see)
