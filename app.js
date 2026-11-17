@@ -9,28 +9,8 @@ import mysql2 from 'mysql2';
 import dotenv from 'dotenv';
 dotenv.config();
 
-/* ==================== DATABASE CONNECTION POOL ====================
-
-
- * Create a CONNECTION POOL to the database
- * A "pool" is like a bucket of ready-to-use database connections.
- * Instead of creating a new connection every time we need to talk
- * to the database (which is slow), we create several connections
- * upfront and reuse them. This makes our app much faster.
- * 
- * .promise() converts the pool to use modern JavaScript Promises
- * This allows us to use 'async/await' syntax which simplifies our code.
- */
-
-
-const pool = mysql2.createPool({
-    host: process.env.DB_HOST,       	// Your Digital Ocean IP
-    user: process.env.DB_USER,          // MySQL username
-    password: process.env.DB_PASSWORD, 	// MySQL password from readme.txt
-    database: process.env.DB_NAME,      // Database name
-    port: process.env.DB_PORT           // MySQL port (default is 3306)
-}).promise();
-
+//Import express session
+import session from 'express-session';
 
 //create an instance of an
 //express application
@@ -42,6 +22,41 @@ const PORT = 3000;
 
 //create array to store orders
 const orders = [];
+
+//session middleware
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 1000 * 60 * 60 }
+}));
+
+//requirelogin middleware
+function requireLogin(req, res, next) {
+    if (req.session.loggedIn) {
+        next();
+    } else {
+        res.redirect('/login');
+    }
+}
+
+/* ==================== DATABASE CONNECTION POOL ====================
+ * Create a CONNECTION POOL to the database
+ * A "pool" is like a bucket of ready-to-use database connections.
+ * Instead of creating a new connection every time we need to talk
+ * to the database (which is slow), we create several connections
+ * upfront and reuse them. This makes our app much faster.
+ * 
+ * .promise() converts the pool to use modern JavaScript Promises
+ * This allows us to use 'async/await' syntax which simplifies our code.
+ */
+const pool = mysql2.createPool({
+    host: process.env.DB_HOST,       	// Your Digital Ocean IP
+    user: process.env.DB_USER,          // MySQL username
+    password: process.env.DB_PASSWORD, 	// MySQL password from readme.txt
+    database: process.env.DB_NAME,      // Database name
+    port: process.env.DB_PORT           // MySQL port (default is 3306)
+}).promise();
 
 // Database test - http://localhost:3000/db-test to test this route
 app.get('/db-test', async(req,res) => {
@@ -88,6 +103,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // set view engine to EJS
 app.set('view engine', 'ejs');
+
+
 
 //define a default route ("/") <-------------this is where you define the homepage
 app.get('/', (req, res) => {
@@ -158,7 +175,7 @@ app.post('/submit-order', async(req, res) => {
 })
 
 //add an ADMIN route route
-app.get('/admin', async(req, res) => {
+app.get('/admin', requireLogin, async(req, res) => {
     //send this file
     // try/catch block for error handling
     try {
@@ -175,6 +192,41 @@ app.get('/admin', async(req, res) => {
         res.status(500).send('Database error: ' + err.message);
     }
 })
+
+
+//add a ___ route to displays a ___ view page
+app.get('/login', (req, res) => {
+    //send this file
+    res.render('login', {error: null});
+})
+
+//login admin route
+app.post('/login', (req, res) => {
+    //get the values the user typed into the form
+    const username = req.body.username;
+    const password = req.body.password;
+
+    //compare them to the username and password stored in .env
+    if (username === process.env.ADMIN_USER && password === process.env.ADMIN_PASSWORD) {
+
+        //correct! remember this user is logged in
+        req.session.loggedIn = true;
+
+        //send them to the admin page
+        res.redirect('/admin');
+    } else {
+        //wrong username or password
+        res.render('login', { error: 'Invalid username or password'});
+    }
+});
+
+//logout and destroy the session
+app.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/login');
+    });
+});
+
 
 //start the server on the designated port
 app.listen(PORT, () => {

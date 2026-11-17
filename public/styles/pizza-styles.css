@@ -39,7 +39,7 @@ h1 {
     color: white;
     font-size: 1rem;
 }
-input[type="text"], input[type="email"] {
+input[type="text"], input[type="email"], input[type="password"] {
     width: 100%;
     border: 1px solid darkgreen;
     margin: 0rem 0rem 1rem 0rem;
@@ -66,4 +66,9 @@ input[type="text"], input[type="email"] {
     border: none;
     border-radius: .25rem;
     cursor: pointer;
+}
+
+.login-error {
+    color: darkred;
+    font-weight: bold;
 }
