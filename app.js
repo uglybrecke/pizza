@@ -12,6 +12,9 @@ dotenv.config();
 //Import express session
 import session from 'express-session';
 
+//import server-side validation function
+import {validateForm} from './validation.js';
+
 //create an instance of an
 //express application
 const app = express();
@@ -139,6 +142,14 @@ app.post('/submit-order', async(req, res) => {
 
     //old code that we've re-added
     order.timestamp = new Date();
+
+    //validate the data on the server
+    const valid = validateForm(order);
+    if (!valid.isValid) {
+        console.log(valid);
+        res.render('home', {errors: valid.errors });
+        return;
+    }
     
     //conver toppings array to a comma-deliminated string
     order.toppings = Array.isArray(order.toppings) ?

@@ -21,6 +21,14 @@
             <p>we make great pizza!</p>
             <a id="contact-button" href="/contact" role="button">Contact Us</a>
         </div>
+
+        <!-- displau server-side error messages -->
+         <% if (errors) { %>
+            <% errors.foreach(error => { %>
+                <p><%= error %></p>
+            <% }) %>
+        <% } %>
+
         <!-- post is more secure because it doesn't go through the url -->
         <form id="pizza-form" action="/submit-order" method="post"> 
             <!-- Contact Info  -->
